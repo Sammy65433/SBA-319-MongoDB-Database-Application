@@ -153,8 +153,19 @@ app.listen(PORT, () => {
   
 });
 
+### Its Working !!!
+
+## Order of Operations - 
+###  Data
+###  Models
+###  Controllers
+###  Routes
+###  Scripts
+
 
 ### Step 3 
+###  Data
+
 Make 3 Sample Data NBA
 
 data/
@@ -162,11 +173,46 @@ data/
   players.js
   games.js
 
+### teams.js - 
+stores sample team data as array of team obj
+each obj has - name, city, conference 
+used to seed teams in MongoDB
+
+### players.js - 
+stores sample player data as array of player obj
+each obj has - name, position, teamName 
+used to seed players and map later to a team
+
+### games.js - 
+stores sample game data as array of game obj
+each obj has - homeTeamName, awayTeamName, date, location 
+used to seed games and later connect games to team iDs
+
+
+### Step 4 
+###  Models / Schema 
+
+**Build the 3 Mongoose models and schemas to match this data structure**
+
+models/
+  Team.js
+  Player.js
+  Game.js
+
+
+
+
+
+
+### Step 5
+###  Controllers
+
+Build controller functions to handle the app main logic, example creating, updating, deleting, retrieving data from each model 
 
 
 then make GET routes for teams, players, and games 
 
-commit 3
+commit 4
 
 
 
