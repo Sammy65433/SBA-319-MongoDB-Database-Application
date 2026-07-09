@@ -285,7 +285,7 @@ app.use("/teams", teamRoutes);
 
 then make GET routes for teams, players, and games 
 
-commit 6
+commit 8
 
 
 
