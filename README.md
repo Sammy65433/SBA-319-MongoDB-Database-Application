@@ -86,6 +86,13 @@ npm init -y
 npm i express mongoose dotenv
 package.json - change to module 
 
+## Documentation
+- [Mongoose](https://mongoosejs.com/docs/)
+- [MongoDB](https://www.mongodb.com/docs/)
+- [Express](https://expressjs.com/)
+- [Node.js](https://nodejs.org/docs/latest/api/)
+
+
 **Basic plan for models:**
 SBA 319/
   config/
@@ -166,7 +173,7 @@ app.listen(PORT, () => {
 ### Step 3 
 ###  Data
 
-Make 3 Sample Data NBA
+**Make 3 Sample Data NBA**
 
 data/
   teams.js
@@ -193,6 +200,7 @@ used to seed games and later connect games to team iDs
 ###  Models / Schema 
 
 **Build the 3 Mongoose models and schemas to match this data structure**
+Each model defines the fields, data types, validation rules, and relationships between collections.
 
 models/
   Team.js
@@ -200,19 +208,27 @@ models/
   Game.js
 
 
-
-
-
-
 ### Step 5
 ###  Controllers
+controllers/
+  teamController.js
+  playerController.js
+  gameController.js
 
-Build controller functions to handle the app main logic, example creating, updating, deleting, retrieving data from each model 
+Build controller functions to handle the app main logic, Example - creating, updating, deleting, retrieving data from each model.
 
+Controller - handle the logic for each collection.
+Process request and interact with database.
+
+### Create for Teams, Players, Games to manage tasks like retrieving all records, creating new data, updating existing data and deleting records 
+
+Docs:
+- Mongoose `findByIdAndUpdate`: `https://mongoosejs.com/docs/api/model.html#Model.findByIdAndUpdate()`
+- Mongoose validation: `https://mongoosejs.com/docs/validation.html`
 
 then make GET routes for teams, players, and games 
 
-commit 4
+commit 5
 
 
 
