@@ -155,11 +155,18 @@ app.listen(PORT, () => {
 
 
 ### Step 3 
-make 3 models 
+Make 3 Sample Data NBA
+
+data/
+  teams.js
+  players.js
+  games.js
+
+
 
 then make GET routes for teams, players, and games 
 
-
+commit 3
 
 
 
