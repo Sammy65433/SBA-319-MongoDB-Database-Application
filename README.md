@@ -1,6 +1,6 @@
 ## SBA 319:
 **MongoDB Database Application**
-# July 9 2026
+### July 9 2026
 
 **Introduction**
 This assessment measures your understanding of MongoDB and your capability to implement its features in a practical manner. You have creative freedom in the topic, material, and purpose of the web application you will be developing, so have fun with it! However, remember to plan the scope of your project to the timeline you have been given. This assessment has a total duration of three (3) days. This is a take-home assessment. You have three total days (including weekends and holidays) to work on this assessment. This assessment will be due at 5:00pm on the third day after it is assigned. Your instructor will provide you with at least four hours of class time to work on the assessment, during which time you may discuss details of the project with them, including topic, scope, and implementation.
@@ -33,37 +33,37 @@ requirements before attempting to further expand your features.
 Create your application locally, and initialize a local git repo. Make frequent commits to the repo. When your application is complete, push your repo to GitHub and submit the link to the GitHub page using the submission instructions at the top of this document.
 
 **Requirement Weight**
-# Use at least three different data collections within the database (such as users, posts, or comments). 5%
+### Use at least three different data collections within the database (such as users, posts, or comments). 5%
 
-# Utilize reasonable data modeling practices. 10%
+### Utilize reasonable data modeling practices. 10%
 
-# Create GET routes for all data that should be exposed to the client, using appropriate query commands to retrieve the data from the database. 10%
+### Create GET routes for all data that should be exposed to the client, using appropriate query commands to retrieve the data from the database. 10%
 
-# Create POST routes for data, as appropriate, using appropriate insertion commands to add data to the database. At least one data collection should allow for client creation via a POST request. 10%
+### Create POST routes for data, as appropriate, using appropriate insertion commands to add data to the database. At least one data collection should allow for client creation via a POST request. 10%
 
-# Create PATCH or PUT routes for data, as appropriate, using appropriate update commands to change data in the database. At least one data collection should allow for client manipulation via a PATCH or PUT request. 10%
+### Create PATCH or PUT routes for data, as appropriate, using appropriate update commands to change data in the database. At least one data collection should allow for client manipulation via a PATCH or PUT request. 10%
 
-# Create DELETE routes for data, as appropriate, using appropriate delete commands to remove data from the database. At least one data collection should allow for client deletion via a DELETE request. 10%
+### Create DELETE routes for data, as appropriate, using appropriate delete commands to remove data from the database. At least one data collection should allow for client deletion via a DELETE request. 10%
 
-# Include sensible indexes for any and all fields that are queried frequently. For fields that may have a high write-to-read ratio, you may forgo indexes for performance considerations. Make comments of this where applicable. 5%
+### Include sensible indexes for any and all fields that are queried frequently. For fields that may have a high write-to-read ratio, you may forgo indexes for performance considerations. Make comments of this where applicable. 5%
 
 ## Include sensible MongoDB data validation rules for at least one data collection.
-# Note: this may be accomplished in a number of ways. If you choose to perform this task outside of your application's code, you must include a way to test the validation within the application's routes. This can be as simple as providing a POST route that attempts to create an invalid document and displays the resulting error. 5%
+### Note: this may be accomplished in a number of ways. If you choose to perform this task outside of your application's code, you must include a way to test the validation within the application's routes. This can be as simple as providing a POST route that attempts to create an invalid document and displays the resulting error. 5%
 
 ## Populate your application's collections with sample data illustrating the use case of the collections. You must include at least five sample documents per collection.
-# Note: Double-check this requirement before submission. Testing your delete routes may leave you under the requirement. To be safe, populate your collections with sample data well above the requirement (we recommend 10-20 documents). 5%
+### Note: Double-check this requirement before submission. Testing your delete routes may leave you under the requirement. To be safe, populate your collections with sample data well above the requirement (we recommend 10-20 documents). 5%
 
-# Utilize reasonable code organization practices. 5%
+### Utilize reasonable code organization practices. 5%
 
-# Ensure that the program runs without errors (comment out things that do not work, and explain your blockers - you can still receive partial credit). 10%
+### Ensure that the program runs without errors (comment out things that do not work, and explain your blockers - you can still receive partial credit). 10%
 
-# Commit frequently to the git repository. 5% 
+### Commit frequently to the git repository. 5% 
 
-# Include a README file that contains a description of your application. This README must include a description of your API's available routes and their corresponding CRUD operations for reference. 5%
+### Include a README file that contains a description of your application. This README must include a description of your API's available routes and their corresponding CRUD operations for reference. 5%
 
-# Level of effort displayed in creativity and user experience. 5%
+### Level of effort displayed in creativity and user experience. 5%
 
-## Bonus Objectives
+### Bonus Objectives
 The objectives listed here are not required. Ensure that your application meets the requirements
 above before attempting to further expand your features.
 These bonus objectives cannot increase your overall score above 100%. Successful completion of
@@ -77,10 +77,10 @@ your Mongoose schema(s).
 
 ***************************MongoDB Database Application************************
 **Description:**
-## This project is a backend NBA API built with Node.js, Express, MongoDB, and Mongoose. It manages 3 collections: teams, players, and games. The API supoorts CRUD operations, uses validation and indexes, and include sample seed
+### This project is a backend NBA API built with Node.js, Express, MongoDB, and Mongoose. It manages 3 collections: teams, players, and games. The API supoorts CRUD operations, uses validation and indexes, and include sample seed
 
 
-# Step 1:
+### Step 1:
 install 
 npm init -y 
 npm i express mongoose dotenv
@@ -111,10 +111,53 @@ SBA 319/
   README.md
 
 
-# Step 2
-get server connected thru db.js and server.js
-  make 3 models 
-  then make GET routes for teams, players, and games 
+### Step 2 Connect to server to MongoDB
+Get server connected thru db.js and server.js
+Create config/db.js for mongoose connection 
+Create server.js for Express server connection and route monunting 
+
+**db.js**
+async function connectDB() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log("Mongoose connected");
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+export default connectDB;
+
+
+**Server.js**
+import 'dotenv/config';
+import connectDB from './config/db.js';
+import dotenv from "dotenv";
+
+import express from "express";
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Welcome to the NBA API.");
+});
+
+connectDB();
+
+// Start the Express server
+app.listen(PORT, () => {
+  console.log(`Server is running on port: ${PORT}`);
+  
+});
+
+
+### Step 3 
+make 3 models 
+
+then make GET routes for teams, players, and games 
 
 
 
