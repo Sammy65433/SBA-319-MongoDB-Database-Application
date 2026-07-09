@@ -24,7 +24,6 @@ const teamSchema = new mongoose.Schema(
   }
 );
 
-teamSchema.index({ name: 1 }); // creates an index on name to make searches by name faster
 
 const Team = mongoose.model("Team", teamSchema, "teams"); // creates the Team model from the schema
 

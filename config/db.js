@@ -4,10 +4,11 @@ import mongoose from "mongoose";
 
 async function connectDB() {
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
+    await mongoose.connect(process.env.MONGO_URI) 
     console.log("Mongoose connected");
   } catch (e) {
     console.error(e);
+    process.exit(1);
   }
 }
 
@@ -26,3 +27,4 @@ export default connectDB;
 
 // }
 // export default connectDB;
+// console.log(process.env.MONGODB_URI);

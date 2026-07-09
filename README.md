@@ -226,9 +226,66 @@ Docs:
 - Mongoose `findByIdAndUpdate`: `https://mongoosejs.com/docs/api/model.html#Model.findByIdAndUpdate()`
 - Mongoose validation: `https://mongoosejs.com/docs/validation.html`
 
+## Team Controller Description
+
+The `teamController.js` file manages all logic related to the Team collection in the application. 
+
+The `getAllTeams` function is used to fetch every team document from the database and return the results as JSON with a successful status code. 
+
+The `createTeam` function is responsible for adding a new team to the database using the data sent in the request body. If the submitted data matches the schema rules, the new team is created and returned with a `201` status code. If the data fails validation, an error response is sent back.
+
+The `updateTeam` function allows an existing team to be edited by locating it with its unique ID and applying the changes from the request body. The option `new: true` is used so the updated version of the document is returned instead of the original. The option `runValidators: true` ensures that the updated data still follows the rules defined in the schema, such as required fields, allowed values, trimming extra spaces, and uniqueness requirements. If no matching team is found, the function returns a `404` error.
+
+The `deleteTeam` function removes a team document from the database by its ID. If the team exists, it is deleted and a success message is returned. If no matching record is found, a `404` error response is sent.
+
+Overall, the `teamController.js` file acts as the middle layer between the routes and the database. It handles the main application logic, communicates with the Team model, and ensures that proper responses and error messages are returned to the client.
+
+**Tried to test this so i build a teamRoutes.js in routes then the server.js- app.use(express.json())**
+
+**Took 2hrs but i finally did a post and a get on localhost3000**
+*Output*
+
+`"_id": "6a4ffd94348c6818143a4837",`
+`"name": "Lakers",`
+`"city": "Los Angeles",`
+`"conference": "West",`
+`"createdAt": "2026-07-09T19:59:16.365Z",`
+`"updatedAt": "2026-07-09T19:59:16.365Z",`
+`"__v": 0`
+
+// routes/teamRoutes.js
+import express from "express";
+import {
+  getAllTeams,
+  createTeam,
+  updateTeam,
+  deleteTeam
+} from "../controllers/teamController.js";
+
+const router = express.Router();
+
+router.get("/", getAllTeams);
+router.post("/", createTeam);
+router.put("/:id", updateTeam);
+router.delete("/:id", deleteTeam);
+
+export default router;
+
+// server.js or app.js
+import express from "express";
+import teamRoutes from "./routes/teamRoutes.js";
+
+const app = express();
+app.use(express.json());
+
+app.use("/teams", teamRoutes);
+
+
+
+
 then make GET routes for teams, players, and games 
 
-commit 5
+commit 6
 
 
 
