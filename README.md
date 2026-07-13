@@ -63,15 +63,17 @@ requirements before attempting to further expand your features.
 
 `Level of effort displayed in creativity and user experience. 5%`
 
-`Bonus Objectives`
+**Bonus Objectives:**
 **The objectives listed here are not required. Ensure that your application meets the requirements above before attempting to further expand your features.**
 
 `These bonus objectives cannot increase your overall score above 100%. Successful completion of these objectives can; however, make up for lost points above. Ensure your application works as outlined by the requirements above before attempting these objectives, time permitting.`
 
 **Use Mongoose to implement your application.**
 `Note: The validation requirements above must still be implemented database-side, but should also be implemented application-side within your Mongoose schema(s). +1%`
+*******************************************************************************************
 
-***************************MongoDB Database Application************************
+
+## MongoDB Database Application
 **Description:**
 `This project is a backend NBA API built with Node.js, Express, MongoDB, and Mongoose. It manages 3 collections: teams, players, and games. The API supoorts CRUD operations, uses validation and indexes, and include sample seed`
 
@@ -90,22 +92,22 @@ requirements before attempting to further expand your features.
 
 
 **Basic plan for models:**
-SBA 319/
-  config/
+- SBA 319/
+-  config/
     db.js
-  models/
+-  models/
     Team.js
     Player.js
     Game.js
-  routes/
+-  routes/
     teams.js
     players.js
     games.js
-  data/
+-  data/
     teams.js
     players.js
     games.js
-  scripts/
+-  scripts/
     seed.js
   .env
   .gitignore
@@ -168,12 +170,11 @@ app.listen(PORT, () => {
 
 ### Step 3 
 **Data**
-`Data`
 **Make 3 Sample Data NBA**
-data/
-  teams.js
-  players.js
-  games.js
+`data/`
+  `teams.js`
+  `players.js`
+  `games.js`
 
 `teams.js -` 
 stores sample team data as array of team obj
@@ -269,9 +270,99 @@ The `deleteTeam` function removes a team document from the database by its ID. I
 
 Overall, the `teamController.js` file acts as the middle layer between the routes and the database. It handles the main application logic, communicates with the Team model, and ensures that proper responses and error messages are returned to the client.
 
+// controllers/teamController.js
+
+import Team from "../models/Team.js";
+//import Team model so i can work with team data in MongoDB
+
+export const getAllTeams = async (req, res) => {
+    try {
+        const teams = await Team.find();
+        // find all teams from database 
+        res.status(200).json(teams);
+        // send list of teams with SUCCESS
+
+    } catch (error) {
+        res.status(500).json({
+            error: error.message
+        });
+        //if something goes wrong send this 
+    }
+};
+
+export const createTeam = async (req, res) => {
+    try {
+        const team = await Team.create(req.body);
+        // create new team using data sent in request body
+        res.status(201).json(team);
+        // send back created team
+
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+        //if validation fails send this 
+    }
+};
+
+export const updateTeam = async (req, res) => {
+    try {
+        const team = await Team.findByIdAndUpdate(req. params.id, req.body, {
+            new: true, //return updated ver of doc
+            runValidators: true //make sure data follows schema rules 
+            //  Tells Mongoose to apply schema validation rules when updating a document.
+            // rules like required, enum, trim, unique 
+
+        });
+        if (!team) {
+            return res.status(404).json({ message: "Team not found" });
+            // if no team matches id send this 
+        }
+
+        res.status(200).json(team);
+        // send back updated team
+
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+        //if validation fails send this 
+    }
+};
+
+
+export const deleteTeam = async (req, res) => {
+    try {
+        const team = await Team.findByIdAndDelete(req. params.id);
+
+        if (!team) {
+            return res.status(404).json({ message: "Team not found" });
+            // if no team matches id send this 
+        }
+
+        res.status(200).json({ message: "Team deletion Successful"});
+        // send back updated team
+
+    } catch (error) {
+        res.status(400).json({
+            error: error.message
+        });
+        //if validation fails send this 
+    }
+};
+
+
 **Tried to test this so i build a teamRoutes.js in routes then the server.js- app.use(express.json())**
 
 **Took 2hrs but i finally did a post and a get on localhost3000**
+**Input**
+`JSON body`
+{
+  "name": "Lakers",
+  "city": "Los Angeles",
+  "conference": "West"
+}
+
 *Output*
 
 `"_id": "6a4ffd94348c6818143a4837",`
@@ -282,6 +373,8 @@ Overall, the `teamController.js` file acts as the middle layer between the route
 `"updatedAt": "2026-07-09T19:59:16.365Z",`
 `"__v": 0`
 
+
+`What i used in teamRoutes`
 // routes/teamRoutes.js
 import express from "express";
 import {
@@ -300,7 +393,7 @@ router.delete("/:id", deleteTeam);
 
 export default router;
 
-// server.js or app.js
+// server.js 
 import express from "express";
 import teamRoutes from "./routes/teamRoutes.js";
 
@@ -310,6 +403,12 @@ app.use(express.json());
 app.use("/teams", teamRoutes);
 
 
+**Order of Operations**
+**`Data`**
+**`Models`**
+**`Controllers`**
+`Routes`
+`Scripts`
 
 
 then make GET routes for teams, players, and games 
