@@ -411,4 +411,68 @@ app.use("/teams", teamRoutes);
 **`Scripts`**
 
 
+### Step 6: Routes
+Create separate route files for Teams, Players, and Games inside the `routes` folder. Each route file connects the API endpoints to its matching controller functions so the app can handle requests for getting, creating, updating, and deleting data. The routes were then mounted in `server.js` using `app.use()`.
+
+What I did:
+- Created `teamRoutes.js`, `playerRoutes.js`, and `gameRoutes.js`
+- Connected each route file to its controller
+- Mounted the routes in `server.js` with:
+  - `app.use("/teams", teamRoutes)`
+  - `app.use("/players", playerRoutes)`
+  - `app.use("/games", gameRoutes)`
+
+Example routes:
+- `GET /teams`
+- `POST /teams`
+- `PUT /teams/:id`
+- `DELETE /teams/:id`
+
+
+### Step 7: Scripts
+A `scripts` folder was created to hold helper files used outside of the main server. In this project, the `seed.js` script was added to quickly populate the database with sample NBA data for Teams, Players, and Games.
+
+The `seed.js` file first connects to MongoDB using the `connectDB()` function. After the connection is successful, it clears the existing collections with `deleteMany()` so duplicate data does not build up each time the script is run. It then inserts the sample team data from the `data/teams.js` file into the database.
+
+Once the teams are created, the script builds a mapping between each team name and its MongoDB `_id`. That mapping is then used to convert the sample player and game data, which originally store team names, into valid MongoDB references using `ObjectId` values. This allows the Player and Game collections to correctly connect back to the Team collection.
+
+After converting the data, the script inserts the player and game records into their collections with `insertMany()`. When the process finishes, the script logs a success message and exits. If an error happens at any point, it logs the error and exits with a failure code.
+
+This script makes testing easier, helps meet the assignment requirement for sample data, and ensures that the database can be reset and repopulated quickly whenever needed.
+
+What I did:
+- Created a `scripts` folder
+- Added `seed.js`
+- Connected the script to MongoDB
+- Cleared old collection data before inserting new data
+- Inserted sample Teams, Players, and Games data
+- Mapped team names to MongoDB `_id` values for relationships
+- Updated `package.json` so the script can be run with `npm run seed`
+
+Scripts used:
+- `npm run dev` starts the server with nodemon
+- `npm run seed` runs the seed script
+
+
+
+### Step 8: README
+Create a `README.md` file to explain the purpose of the project, the technologies used, the folder structure, setup steps, available API routes, and important features like validation, indexes, and sample data. This helps document the application clearly for grading and future reference.
+
+What I did:
+- Added a project description
+- Listed the tools and technologies used
+- Documented the folder structure
+- Added setup and run instructions
+- Listed the available API routes and CRUD operations
+- Explained the purpose of the models, controllers, routes, and seed script
+
+
+**Order of Operations**
+1. Data
+2. Models
+3. Controllers
+4. Routes
+5. Scripts
+6. README
+
 
