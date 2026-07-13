@@ -3,11 +3,15 @@
 import 'dotenv/config';
 import express from "express";
 
+
 import connectDB from './config/db.js';
 import dotenv from "dotenv";
 
 
 import teamRoutes from "./routes/teamRoutes.js"
+import playerRoutes from "./routes/playerRoutes.js";
+import gameRoutes from "./routes/gameRoutes.js";
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +19,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use("/teams", teamRoutes);
+app.use("/players", playerRoutes);
+app.use("/games", gameRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the NBA API.");
