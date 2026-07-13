@@ -407,22 +407,8 @@ app.use("/teams", teamRoutes);
 **`Data`**
 **`Models`**
 **`Controllers`**
-`Routes`
-`Scripts`
+**`Routes`***
+**`Scripts`**
 
 
-then make GET routes for teams, players, and games 
-
-commit 8
-
-
-```md
-### Step 6: Routes
-Create separate Express route files for Teams, Players, and Games. Each route file connects HTTP requests to its matching controller functions so the API can handle CRUD operations for each collection.
-```
-
-### Step 7: Testing
-Test all routes in Postman or another API tool to make sure the endpoints work correctly and return the expected results.
-
-  
 
